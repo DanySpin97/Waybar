@@ -1,6 +1,7 @@
 #pragma once
 
 #include <gtkmm.h>
+
 #include <tuple>
 #include <dbus-status-notifier-watcher.h>
 #include "modules/sni/sni.hpp"

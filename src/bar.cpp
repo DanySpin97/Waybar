@@ -21,6 +21,7 @@ waybar::Bar::Bar(const Client& client,
 	zxdg_output_v1_add_listener(xdg_output_, &xdgOutputListener, this);
   window.set_title("waybar");
   window.set_decorated(false);
+  window.set_name("waybar");
   setupConfig();
   setupCss();
   setupWidgets();

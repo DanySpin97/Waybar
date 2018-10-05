@@ -6,43 +6,42 @@
 namespace waybar::modules::SNI {
 
 class Watcher {
-  public:
-    Watcher();
-    ~Watcher();
-  private:
-    typedef enum {
-      GF_WATCH_TYPE_HOST,
-      GF_WATCH_TYPE_ITEM
-    } GfWatchType;
+public:
+  Watcher();
+  ~Watcher();
 
-    typedef struct {
-      GfWatchType type;
-      Watcher* watcher;
-      gchar* service;
-      gchar* bus_name;
-      gchar* object_path;
-      guint watch_id;
-    } GfWatch;
+private:
+  typedef enum { GF_WATCH_TYPE_HOST, GF_WATCH_TYPE_ITEM } GfWatchType;
 
-    static void busAcquired(GDBusConnection*, const gchar*, gpointer);
-    static gboolean handleRegisterHost(Watcher*,
-      GDBusMethodInvocation*, const gchar*);
-    static gboolean handleRegisterItem(Watcher*,
-      GDBusMethodInvocation*, const gchar*);
-    static GfWatch* gfWatchFind(GSList* list, const gchar* bus_name,
-      const gchar* object_path);
-    static GfWatch* gfWatchNew(GfWatchType, const gchar*, const gchar*,
-      const gchar*, Watcher*);
-    static void nameVanished(GDBusConnection* connection, const char* name,
-      gpointer data);
+  typedef struct {
+    GfWatchType type;
+    Watcher *watcher;
+    gchar *service;
+    gchar *bus_name;
+    gchar *object_path;
+    guint watch_id;
+  } GfWatch;
 
-    void updateRegisteredItems(SnOrgKdeStatusNotifierWatcher* obj);
+  static void busAcquired(GDBusConnection *, const gchar *, gpointer);
+  static gboolean handleRegisterHost(Watcher *, GDBusMethodInvocation *,
+                                     const gchar *);
+  static gboolean handleRegisterItem(Watcher *, GDBusMethodInvocation *,
+                                     const gchar *);
+  static GfWatch *gfWatchFind(GSList *list, const gchar *bus_name,
+                              const gchar *object_path);
+  static GfWatch *gfWatchNew(GfWatchType, const gchar *, const gchar *,
+                             const gchar *, Watcher *);
+  static void nameVanished(GDBusConnection *connection, const char *name,
+                           gpointer data);
 
-    uint32_t bus_name_id_;
-    uint32_t watcher_id_;
-    GSList* hosts_ = nullptr;
-    GSList* items_ = nullptr;
-    SnOrgKdeStatusNotifierWatcher *watcher_ = nullptr;
+  void updateRegisteredItems(SnOrgKdeStatusNotifierWatcher *obj);
+
+  uint32_t bus_name_id_;
+  uint32_t watcher_id_;
+  GSList *hosts_ = nullptr;
+  GSList *items_ = nullptr;
+  SnOrgKdeStatusNotifierWatcher *watcher_ = nullptr;
 };
 
-}
+} // namespace waybar::modules::SNI
+
